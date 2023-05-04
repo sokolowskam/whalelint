@@ -1,8 +1,8 @@
-1) no package manager upgrade (might be bad bc upgrade fixes any vulnerabilities that might be in past versions of the packages):  /(apt-get (-y\s)?upgrade)/igm   /(apk\supgrade)/igm
+1) no package manager update (might be bad bc update fixes any vulnerabilities that might be in past versions of the packages):  /(apt-get (-y\s)?upgrade)/igm   /(apk\supgrade)/igm RUN013
 2) less checksum lines than downloads: /((curl|wget|torrent).*http(s?):\/\/.*)(sha1sum|sha224sum|sha384sum|sha256sum|sha512sum|md5sum|hmac|base64)/igms
-3) hardcoded credentials: /(−− password)/igm  /(password|token|secret|client_secret)/igm   
-4) key generation during image build: /RUN(.*)(ssh\-keygen)\s\-(.*)$/igm
-5) static private key: /(PRIVATE KEY −−−−−)/igm
-6) sudo without password:  /(\/etc\/sudoers)/igm
-7) not switching to a non-root user:  /^USER\s+((?!root).*)(:.*)?$/gm
+3) hardcoded credentials: /(−−password)/igm  /(password|token|secret|client_secret)/igm RUN014
+4) key generation during image build: /RUN(.*)(ssh\-keygen)\s\-(.*)$/igm RUN011
+5) static private key: /(PRIVATE KEY−−−−−)/igm
+6) sudo without password:  /(\/etc\/sudoers)/igm RUN012
+7) not switching to a non-root user:  /^USER\s+((?!root).*)(:.*)?$/gm USR001
 
