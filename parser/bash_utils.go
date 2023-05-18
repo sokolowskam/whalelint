@@ -104,3 +104,7 @@ func IsSusePackageInstall(bashCommand BashCommand) bool {
 func IsFedoraPackageInstall(bashCommand BashCommand) bool {
 	return IsDnfPackageManager(bashCommand.Bin()) && bashCommand.SubCommand() == installStr
 }
+
+func IsPackageInstall(bashCommand BashCommand) bool {
+	return IsPythonPackageInstall(bashCommand) || IsApkPackageInstall(bashCommand) || IsDebPackageInstall(bashCommand) || IsSusePackageInstall(bashCommand) || IsFedoraPackageInstall(bashCommand)
+}
