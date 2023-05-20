@@ -269,6 +269,7 @@ func GetDockerfileAst(filePathString string) ([]instructions.Stage, []instructio
 // - try again until there is
 //   - either a valid AST tree that can be parsed further
 //   - there is no more child, in which case it returns an empty stage.
+//
 // nolint:funlen
 func ParseDockerfileInstructionsSafely(dockerfile *parser.Result, fileHandle io.ReadSeeker) ([]instructions.Stage,
 	[]instructions.ArgCommand) {
@@ -288,7 +289,7 @@ func ParseDockerfileInstructionsSafely(dockerfile *parser.Result, fileHandle io.
 		if err != nil {
 			log.Trace("Cannot create Dockerfile AST", err)
 			// parse offending node number
-			regexpOffendingLine := regexp.MustCompile(" parse error line ([1-9]+[0-9]*):")
+			regexpOffendingLine := regexp.MustCompile("dockerfile parse error on line ([1-9]+[0-9]*):")
 			strSlice := regexpOffendingLine.FindStringSubmatch(err.Error())
 			offendingLineIndex, _ := strconv.Atoi(strSlice[1])
 
@@ -310,7 +311,7 @@ func ParseDockerfileInstructionsSafely(dockerfile *parser.Result, fileHandle io.
 			}
 			log.Trace("Found offending line index: ", offendingLineIndex)
 
-			offendingLineStr = strings.TrimSuffix(offendingLineStr, "\n")
+			offendingLineStr = strings.TrimSuffix(offendingLineStr, "\r\n")
 			offendingAstIdx := -1
 
 			for i, child := range dockerfile.AST.Children {
