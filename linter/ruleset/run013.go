@@ -32,15 +32,15 @@ func ValidateRun013(runCommand *instructions.RunCommand) RuleValidationResult {
 		if parser.HasPackageUpdateCommand(packageManager, bashCommand) {
 			hasUpdateCommand = true
 		}
-		if parser.IsPackageInstall(bashCommand) && hasUpdateCommand {
+		if parser.IsPackageInstall(bashCommand) && !hasUpdateCommand {
 			return RuleValidationResult{
-				isViolated:    false,
-				LocationRange: LocationRangeFromCommand(runCommand),
+				isViolated:    true,
+				LocationRange: ParseLocationFromRawParser(bashCommandList[0].Bin(), runCommand.Location()),
 			}
 		}
 	}
 	return RuleValidationResult{
-		isViolated:    true,
-		LocationRange: ParseLocationFromRawParser(bashCommandList[0].Bin(), runCommand.Location()),
+		isViolated:    false,
+		LocationRange: LocationRangeFromCommand(runCommand),
 	}
 }

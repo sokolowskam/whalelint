@@ -18,11 +18,10 @@ func ValidateSts005(stage instructions.Stage) RuleValidationResult {
 		if registry != "docker.io" && registry != "hub.docker.com" {
 			result.SetViolated() // as latest is the default
 		}
-	}
-
-	if result.IsViolated() {
-		result.message = "Registry \"" + image + "\" might not be trusted."
-		result.LocationRange = ParseLocationFromRawParser(stage.BaseName, stage.Location)
+		if result.IsViolated() {
+			result.message = "Registry \"" + registry + "\" might not be trusted."
+			result.LocationRange = ParseLocationFromRawParser(stage.BaseName, stage.Location)
+		}
 	}
 
 	return result
