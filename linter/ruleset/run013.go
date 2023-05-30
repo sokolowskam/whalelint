@@ -25,19 +25,22 @@ func ValidateRun013(runCommand *instructions.RunCommand) RuleValidationResult {
 
 	bashCommandList := parser.ParseBashCommandChain(runCommand).BashCommandList
 
-	//TODO: Add checking if package manager is even used
+	hasUpdateCommand := false
 
 	for _, bashCommand := range bashCommandList {
 		packageManager := bashCommand.Bin()
 		if parser.HasPackageUpdateCommand(packageManager, bashCommand) {
+			hasUpdateCommand = true
+		}
+		if parser.IsPackageInstall(bashCommand) && !hasUpdateCommand {
 			return RuleValidationResult{
-				isViolated:    false,
-				LocationRange: LocationRangeFromCommand(runCommand),
+				isViolated:    true,
+				LocationRange: ParseLocationFromRawParser(bashCommandList[0].Bin(), runCommand.Location()),
 			}
 		}
 	}
 	return RuleValidationResult{
-		isViolated:    true,
-		LocationRange: ParseLocationFromRawParser(bashCommandList[0].Bin(), runCommand.Location()),
+		isViolated:    false,
+		LocationRange: LocationRangeFromCommand(runCommand),
 	}
 }

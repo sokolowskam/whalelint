@@ -6,16 +6,16 @@ import (
 	"github.com/moby/buildkit/frontend/dockerfile/instructions"
 )
 
-var _ = NewRule("RUN014", "Do not hardcode credentials - consider passing vulnerable data via environment variables or secret files.", "", ValWarning,
-	ValidateRun014)
+var _ = NewRule("RUN015", "Do not hardcode the private key in the Dockerfile.", "", ValError,
+	ValidateRun015)
 
-func ValidateRun014(runCommand *instructions.RunCommand) RuleValidationResult {
+func ValidateRun015(runCommand *instructions.RunCommand) RuleValidationResult {
 	result := RuleValidationResult{
 		isViolated:    false,
 		LocationRange: LocationRangeFromCommand(runCommand),
 	}
 
-	regexpInvalidPattern := regexp.MustCompile(`(?i)(password|token|client_secret)`)
+	regexpInvalidPattern := regexp.MustCompile(`PRIVATE KEY-----`)
 	if match := regexpInvalidPattern.FindString(runCommand.String()); len(match) > 0 {
 		result.SetViolated()
 		result.LocationRange = ParseLocationFromRawParser(match, runCommand.Location())
