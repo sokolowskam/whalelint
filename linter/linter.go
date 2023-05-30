@@ -65,6 +65,11 @@ func (l *Linter) Run(stageList []instructions.Stage) []RuleSet.RuleValidationRes
 					validationResult := rule.Validate(copyCommand)
 					ruleValidationResultArray = append(ruleValidationResultArray, validationResult)
 				}
+			} else if addCommand, ok := command.(*instructions.AddCommand); ok {
+				for _, rule := range RuleSet.GetRulesForAstElement(addCommand) {
+					validationResult := rule.Validate(addCommand)
+					ruleValidationResultArray = append(ruleValidationResultArray, validationResult)
+				}
 			} else if entrypointCommand, ok := command.(*instructions.EntrypointCommand); ok {
 				for _, rule := range RuleSet.GetRulesForAstElement(entrypointCommand) {
 					validationResult := rule.Validate(entrypointCommand)
