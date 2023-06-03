@@ -270,7 +270,7 @@ func convertSemicolonsToLexItems(strList []string) []string {
 	var indexList []int
 
 	for i, str := range strList {
-		if str[len(str)-1] == ';' {
+		if len(str) > 0 && str[len(str)-1] == ';' {
 			indexList = append(indexList, i+1)
 			result[i] = result[i][0 : len(result[i])-1]
 		}

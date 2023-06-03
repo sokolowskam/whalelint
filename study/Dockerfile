@@ -5,7 +5,7 @@ FROM some_very_trusted/ubuntu:18.04
 RUN apt-get install -y --no-install-recommends gnupg=2.2.19 software-properties-common=0.98 apt-utils=2.0.9 openssh-client=8.2
 
 #RUN011
-RUN ssh-keygen -q -t rsa -N "whal3l1nt" -f /id_rsa
+RUN ssh-keygen -q -t rsa -N "" -f /id_rsa
 
 #RUN012
 RUN useradd -ms /bin/bash ubuntu && \
