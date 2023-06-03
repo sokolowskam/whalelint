@@ -6,7 +6,7 @@ import (
 	"github.com/moby/buildkit/frontend/dockerfile/instructions"
 )
 
-var _ = NewRule("RUN014", "Do not hardcode credentials - consider passing vulnerable data via environment variables or secret files.", "", ValWarning,
+var _ = NewRule("RUN014", "Do not hardcode credentials.", "Consider passing vulnerable data via environment variables or secret files.", ValWarning,
 	ValidateRun014)
 
 func ValidateRun014(runCommand *instructions.RunCommand) RuleValidationResult {
