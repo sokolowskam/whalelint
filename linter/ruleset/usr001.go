@@ -4,7 +4,7 @@ import (
 	"github.com/moby/buildkit/frontend/dockerfile/instructions"
 )
 
-var _ = NewRule("USR001", "Last USER should not be root.", "", ValWarning, ValidateUsr001)
+var _ = NewRule("USR001", "Last USER should not be root.", "Docker containers should be run as a non-root user.", ValWarning, ValidateUsr001)
 
 func ValidateUsr001(stageList []instructions.Stage) RuleValidationResult {
 	result := RuleValidationResult{isViolated: false, LocationRange: LocationRange{}}

@@ -8,7 +8,7 @@ import (
 
 // TODO: revisit
 
-var _ = NewRule("RUN013", "Update the package manager.", "", ValWarning,
+var _ = NewRule("RUN013", "Update the package manager.", "Package manager update ensures that the packages are up to date, regardless of when the image was built.", ValWarning,
 	ValidateRun013)
 
 func ValidateRun013(runCommand *instructions.RunCommand) RuleValidationResult {
