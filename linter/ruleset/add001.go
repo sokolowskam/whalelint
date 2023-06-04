@@ -8,8 +8,8 @@ import (
 	"regexp"
 )
 
-var _ = NewRule("ADD001", "Use COPY for copying local files into the an image.",
-	"Use 'COPY' instead of 'ADD' if the ADD functionalities like - adding files from an URL or from a compressed file is needed.",
+var _ = NewRule("ADD001", "Use COPY for copying local files into the image.",
+	"Use 'COPY' instead of 'ADD' if you are copying local files. Use 'ADD' if you are adding files from an URL or a compressed archive.",
 	ValWarning, ValidateAdd001)
 
 func ValidateAdd001(addCommand *instructions.AddCommand) RuleValidationResult {
