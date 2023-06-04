@@ -29,7 +29,6 @@ func ValidateAdd001(addCommand *instructions.AddCommand) RuleValidationResult {
 	if err == nil {
 		u, err2 := url.Parse(addCommand.SourcesAndDest.SourcePaths[0])
 		if err2 != nil || u.Scheme == "" || u.Host == "" {
-			fmt.Println("not an url")
 		} else {
 			return result
 		}
