@@ -6,7 +6,7 @@ import (
 	"github.com/moby/buildkit/frontend/dockerfile/instructions"
 )
 
-var _ = NewRule("RUN015", "Do not hardcode the private key in the Dockerfile.", "Consider instead to mount it on runtime.", ValError,
+var _ = NewRule("RUN015", "Do not hardcode the private key in the Dockerfile. Consider instead to mount it on runtime.", "", ValError,
 	ValidateRun015)
 
 func ValidateRun015(runCommand *instructions.RunCommand) RuleValidationResult {
