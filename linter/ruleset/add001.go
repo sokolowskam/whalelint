@@ -1,7 +1,6 @@
 package ruleset
 
 import (
-	"fmt"
 	"github.com/moby/buildkit/frontend/dockerfile/instructions"
 	"net/url"
 	"path"
