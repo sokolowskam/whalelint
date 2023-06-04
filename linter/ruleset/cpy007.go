@@ -7,9 +7,9 @@ import (
 )
 
 var _ = NewRule(
-	"CPY007", "Beware of copying sensitive information | COPY . ... can end up copying sensitive information to the Docker image",
-	``+"`COPY . ...`"+` command can end up copying sensitive information to the Docker image. 
-If you have files containing sensitive information in your folder, either remove them or add them to .dockerignore.`,
+	"CPY007", "Beware of copying sensitive information | Recursive COPY . ... can end up copying sensitive information to the Docker image. If you have files containing sensitive information in your folder, either remove them or add them to .dockerignore.",
+
+	"",
 	ValWarning, ValidateCpy007)
 
 // checks for recursive copies of the form "COPY ."

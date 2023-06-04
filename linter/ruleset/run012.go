@@ -6,7 +6,7 @@ import (
 	"github.com/moby/buildkit/frontend/dockerfile/instructions"
 )
 
-var _ = NewRule("RUN012", "Avoid interacting with /etc/sudoers file.", "Consider using gosu for passwordless sudo instead.", ValWarning,
+var _ = NewRule("RUN012", "Avoid interacting with /etc/sudoers file. Consider using gosu to enforce root instead.", "", ValWarning,
 	ValidateRun012)
 
 func ValidateRun012(runCommand *instructions.RunCommand) RuleValidationResult {

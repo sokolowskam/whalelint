@@ -8,7 +8,7 @@ import (
 )
 
 // STS -> Stage Single.
-var _ = NewRule("STS005", "Make sure you are using a trusted registry.", "Avoid using images of unknown origin and from users you do not trust. When in doubt, use docker official images.", ValInfo, ValidateSts005)
+var _ = NewRule("STS005", "Make sure you are using a trusted registry. Avoid using images of unknown origin and from users you do not trust. When in doubt, use docker official images.", "", ValInfo, ValidateSts005)
 
 func ValidateSts005(stage instructions.Stage) RuleValidationResult {
 	result := RuleValidationResult{isViolated: false, LocationRange: BKRangeSliceToLocationRange(stage.Location)}

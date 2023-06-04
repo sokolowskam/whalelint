@@ -7,7 +7,7 @@ import (
 	Parser "github.com/cremindes/whalelint/parser"
 )
 
-var _ = NewRule("RUN011", "Generating keys in the build phase renders the keys static.", "Consider mounting the keys at runtime instead.", ValWarning,
+var _ = NewRule("RUN011", "Generating keys in the build phase renders the keys static. Consider mounting the keys at runtime instead.", "", ValWarning,
 	ValidateRun011)
 
 func ValidateRun011(runCommand *instructions.RunCommand) RuleValidationResult {

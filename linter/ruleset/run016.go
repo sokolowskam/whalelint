@@ -8,7 +8,7 @@ import (
 	Parser "github.com/cremindes/whalelint/parser"
 )
 
-var _ = NewRule("RUN016", "Consider checking the checksum of every file you download.", "Assuming the source of the download provides a checksum, you can assert the authenticity of the downloaded file. More information in the documentation.", ValWarning,
+var _ = NewRule("RUN016", "Consider checking the checksum of every file you download. Assuming the source of the download provides a checksum, you can assert the authenticity of the downloaded file. More information in the documentation.", "", ValWarning,
 	ValidateRun016)
 
 func ValidateRun016(runCommand *instructions.RunCommand) RuleValidationResult {
