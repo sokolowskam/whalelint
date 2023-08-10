@@ -6,9 +6,7 @@ import (
 	"github.com/cremindes/whalelint/parser"
 )
 
-// TODO: revisit
-
-var _ = NewRule("RUN013", "Update the package manager. Package manager update ensures that the packages are up to date, regardless of when the image was built.", "", ValWarning,
+var _ = NewRule("RUN013", "Update the package manager before installing packages.", "Package manager update ensures that the packages are up to date, regardless of when the image was built.", ValWarning,
 	ValidateRun013)
 
 func ValidateRun013(runCommand *instructions.RunCommand) RuleValidationResult {
@@ -25,18 +23,23 @@ func ValidateRun013(runCommand *instructions.RunCommand) RuleValidationResult {
 
 	bashCommandList := parser.ParseBashCommandChain(runCommand).BashCommandList
 
-	hasUpdateCommand := false
+	updateCommandLocation := -1
+	installCommandLocation := -1
 
-	for _, bashCommand := range bashCommandList {
+	for i, bashCommand := range bashCommandList {
 		packageManager := bashCommand.Bin()
 		if parser.HasPackageUpdateCommand(packageManager, bashCommand) {
-			hasUpdateCommand = true
+			updateCommandLocation = i
 		}
-		if parser.IsPackageInstall(bashCommand) && !hasUpdateCommand {
-			return RuleValidationResult{
-				isViolated:    true,
-				LocationRange: ParseLocationFromRawParser(bashCommandList[0].Bin(), runCommand.Location()),
-			}
+		if parser.IsPackageInstall(bashCommand) {
+			installCommandLocation = i
+		}
+	}
+
+	if (updateCommandLocation > installCommandLocation) || (updateCommandLocation == -1 && installCommandLocation != -1) {
+		return RuleValidationResult{
+			isViolated:    true,
+			LocationRange: ParseLocationFromRawParser(bashCommandList[0].Bin(), runCommand.Location()),
 		}
 	}
 	return RuleValidationResult{
