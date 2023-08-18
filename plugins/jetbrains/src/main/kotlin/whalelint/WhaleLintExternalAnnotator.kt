@@ -126,9 +126,16 @@ class WhaleLintExternalAnnotator : ExternalAnnotator<PsiFile, List<ValidationRes
                     return true
                 }
 
+                //TODO: change the link when PRing the fork!
+
+//                @Throws(IncorrectOperationException::class)
+//                override fun invoke(project: Project, editor: Editor, file: PsiFile) {
+//                    browse("https://github.com/CreMindES/whalelint/tree/main/docs/rule/set/" +
+//                            "${issue.rule!!.ruleId!!.toLowerCase()}.md")
+//                }
                 @Throws(IncorrectOperationException::class)
                 override fun invoke(project: Project, editor: Editor, file: PsiFile) {
-                    browse("https://github.com/CreMindES/whalelint/tree/main/docs/rule/set/" +
+                    browse("https://github.com/sokolowskam/whalelint/tree/main/docs/rule/set/" +
                             "${issue.rule!!.ruleId!!.toLowerCase()}.md")
                 }
 
